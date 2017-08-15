@@ -4,30 +4,30 @@
     ViewBag.Title = "TallyBookChildAction";
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @section gridview{ 
-        <div class="form-horizontal">
-            <div id="gridContent" style=" padding:20px; ">
-
-                @{
-                    var grid = new WebGrid(Model.TallyBook, canPage: true, rowsPerPage: 2, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
-                    grid.Pager(WebGridPagerModes.All);
-                }
-
-                @grid.GetHtml(tableStyle: "table table-bordered", headerStyle: "webgrid-header", footerStyle: "webgrid-footer", alternatingRowStyle: "webgrid-alternating-row",
-         selectedRowStyle: "webgrid-selected-row", rowStyle: "webgrid-row-style", mode: WebGridPagerModes.All,
-         columns: grid.Columns(
-         grid.Column("ID", "#", format: item => item.WebGrid.Rows.IndexOf(item) + 1, style: "col1Width"),
-         grid.Column("Type", "類別", format: @<text>  <span class="display-mode"> <label id="lblType">@item.Type</label> </span> </text>, style: "col2Width"),
-         grid.Column("Date", "日期", format: @<text> <span class="display-mode"> <label id="lblDate">@item.Date</label> </span>  </text>, style: "col2Width"),
-         grid.Column("Money", "金額", format: @<text> <span class="display-mode"> <label id="lblMoney">@item.Money</label> </span>  </text>, style: "col2Width")
-           ))
-            </div>
-        </div>    
-    }
-
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>#</th>
+            <th>類別</th>
+            <th>日期</th>
+            <th>金額</th>
+        </tr>
+        @{
+            var i = 0;
+            foreach (var item in @Model.TallyBook)
+            {
+                ++i;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Type</td>
+                    <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@item.Money.ToString("#,0")</td>
+                </tr>    }
+        }
+       
+    </table>
 }
 
 @section Scripts {
