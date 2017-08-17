@@ -5,17 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using TallyBook.Models;
 using TallyBook.Models.ViewModels;
+using TallyBook.Repositories;
 
 namespace TallyBook.Controllers
 {
     public class TallyBookController : Controller
     {
-
         private readonly AccountBookService _accountbookSvc;
 
         public TallyBookController()
         {
-            _accountbookSvc = new AccountBookService();
+            var unitOfWork = new UnitOfWork();
+            _accountbookSvc = new AccountBookService(unitOfWork);
         }
 
         // GET: TallyBook
