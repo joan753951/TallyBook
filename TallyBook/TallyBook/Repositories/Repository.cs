@@ -26,9 +26,19 @@ namespace TallyBook.Repositories
         {
             UnitOfWork = unitOfWork;
         }
-        public IQueryable<T> QueryAll()
+        public IQueryable<T> LookupAll()
         {
             return ObjectSet;
+        }
+
+        public void Create(T entity)
+        {
+            ObjectSet.Add(entity);
+        }
+
+        public void Commit()
+        {
+            UnitOfWork.Save();
         }
     }
 }

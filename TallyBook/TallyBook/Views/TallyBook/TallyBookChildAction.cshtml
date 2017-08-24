@@ -21,7 +21,7 @@
                 ++i;
                 <tr>
                     <td>@i</td>
-                    <td>@item.Type</td>
+                    <td>@MyCustomHelper.DetermineTypeColor(item.Type)</td>
                     <td>@item.Date.ToString("yyyy-MM-dd")</td>
                     <td>@item.Money.ToString("#,0")</td>
                 </tr>    }

@@ -19,10 +19,10 @@ namespace TallyBook.Models
             _accountbookRep = new Repository<AccountBook>(unitOfWork);
         }
 
-        public virtual TallyBookViewModel QueryAll()
+        public virtual TallyBookViewModel Lookup()
         {
             TallyBookViewModel result = new TallyBookViewModel();
-            var source = _accountbookRep.QueryAll();
+            var source = _accountbookRep.LookupAll();
             var selector = source.Select(p => new TallyBookViewModel()
             {
                 Type = (p.Categoryyy.ToString() == "1" ? "支出" : "收入"),
@@ -30,9 +30,28 @@ namespace TallyBook.Models
                 Money = p.Amounttt,
                 Remark = p.Remarkkk
             });
-            result.TallyBook = selector.AsNoTracking()
+            result.TallyBook = selector.AsNoTracking().OrderBy(p => p.Date)
                                 .ToList();
             return result;
+        }
+
+        public void Add(TallyBookViewModel accountbook)
+        {
+            int.TryParse(accountbook.Type, out int category);
+            var result = new AccountBook()
+            {
+                Id = Guid.NewGuid(),
+                Categoryyy = category,
+                Dateee = accountbook.Date,
+                Amounttt = accountbook.Money,
+                Remarkkk = accountbook.Remark,
+            };
+            _accountbookRep.Create(result);
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Save();
         }
     }
 }

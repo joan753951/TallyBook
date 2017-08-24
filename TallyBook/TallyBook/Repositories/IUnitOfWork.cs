@@ -9,5 +9,9 @@ namespace TallyBook.Repositories
         /// context
         /// </summary>
         DbContext Context { get; set; }
+        /// <summary>
+        /// save change
+        /// </summary>
+        void Save();
     }
 }

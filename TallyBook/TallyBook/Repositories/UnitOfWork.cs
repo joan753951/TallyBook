@@ -15,6 +15,12 @@ namespace TallyBook.Repositories
         {
             Context = new SkillTreeHomeworkEntities();
         }
+
+        public void Save()
+        {
+            Context.SaveChanges();
+        }
+
         public void Dispose()
         {
             Context.Dispose();

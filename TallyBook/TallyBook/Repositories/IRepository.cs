@@ -12,6 +12,15 @@ namespace TallyBook.Repositories
         /// Query all.
         /// </summary>
         /// <returns>IQueryable&lt;T&gt;.</returns>
-        IQueryable<T> QueryAll();
+        IQueryable<T> LookupAll();
+        /// <summary>
+        /// 新增一個entity
+        /// </summary>
+        /// <param name="entity"></param>
+        void Create(T entity);
+        /// <summary>
+        /// save change
+        /// </summary>
+        void Commit();
     }
 }
